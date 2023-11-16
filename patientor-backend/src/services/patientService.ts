@@ -14,8 +14,17 @@ const getNonSensitivePatientEntries = (): NonSensitivePatientEntry[] => {
     name,
     dateOfBirth,
     gender,
-    occupation,
+    occupation
   }));
+};
+
+const getAPatientEntry = (patientId: string): Patient | Record<string, never> => {
+  const patientFound = patients.find(x => x.id === patientId);
+  if(patientFound){
+    return patientFound;
+  } else {
+    return {};
+  }
 };
 
 const addPatient = ( entry: NewPatientEntry ): Patient => {
@@ -31,5 +40,6 @@ const addPatient = ( entry: NewPatientEntry ): Patient => {
 export default {
   getPatientEntries,
   getNonSensitivePatientEntries,
-  addPatient
+  addPatient,
+  getAPatientEntry
 };

@@ -22,4 +22,9 @@ router.post('/', (req, res) => {
   }
 });
 
+router.get('/:id', (req, res) => {
+  const patientId: string = req.params.id;
+  res.send(patientService.getAPatientEntry(patientId));
+});
+
 export default router;
