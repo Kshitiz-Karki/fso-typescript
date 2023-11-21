@@ -38,10 +38,6 @@ const App = () => {
 
   const match = useMatch('/patients/:id');
 
-  // const patient: Patient | null | undefined = match
-  //   ? patients.find(patient => patient.id === match.params.id)
-  //   : null;
-
   useEffect(() => {
     const patientId: string | undefined = match?.params.id;
     if(patientId){
@@ -49,33 +45,27 @@ const App = () => {
       const patient = await patientService.getPatient(patientId);
       setPatient(patient);
     };
-    
-      void fetchPatient();
+    void fetchPatient();
     }
   }, [match]);
   
-  // console.log('match - ', match);
-  console.log('patient - ', patient);
-  // console.log('###########################################');
-  
-  
+  const allDiagnosesCodes: string[] = diagnoses.map(x => x.code);
+
   return (
     <div className="App">
-     
-        <Container>
-          <Typography variant="h3" style={{ marginBottom: "0.5em" }}>
-            Patientor
-          </Typography>
-          <Button component={Link} to="/" variant="contained" color="primary">
-            Home
-          </Button>
-          <Divider hidden />
-          <Routes>
-            <Route path="/" element={<PatientListPage patients={patients} setPatients={setPatients} />} />
-            <Route path="/patients/:id" element={<PatientInfo patient={patient} diagnoses={diagnoses} />} />
-          </Routes>
-        </Container>
-     
+      <Container>
+        <Typography variant="h3" style={{ marginBottom: "0.5em" }}>
+          Patientor
+        </Typography>
+        <Button component={Link} to="/" variant="contained" color="primary">
+          Home
+        </Button>
+        <Divider hidden />
+        <Routes>
+          <Route path="/" element={<PatientListPage patients={patients} setPatients={setPatients} />} />
+          <Route path="/patients/:id" element={<PatientInfo patient={patient} diagnoses={diagnoses} allDiagnosesCodes={allDiagnosesCodes} />} />
+        </Routes>
+      </Container>
     </div>
   );
 };

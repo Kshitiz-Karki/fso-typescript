@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Diagnosis } from "../types";
-
 import { apiBaseUrl } from "../constants";
 
 const getAll = async () => {

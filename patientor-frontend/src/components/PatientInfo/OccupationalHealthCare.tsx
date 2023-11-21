@@ -1,9 +1,14 @@
 import { OccupationalHealthcareEntry, Diagnosis } from "../../types";
+import DiagnoseInfo from "./DiagnoseInfo";
 import WorkIcon from '@mui/icons-material/Work';
 import Card from '@mui/material/Card';
-import DiagnoseInfo from "./DiagnoseInfo";
 
-const OccupationalHealthCare = ({ entry, diagnoses }: { entry: OccupationalHealthcareEntry, diagnoses: Diagnosis[]}) => {
+interface Props {
+  entry: OccupationalHealthcareEntry;
+  diagnoses: Diagnosis[];
+}
+
+const OccupationalHealthCare = ({ entry, diagnoses }: Props) => {
   let count = 0;
   return (
     <div style={{ paddingBottom: 10 }}>
@@ -14,7 +19,7 @@ const OccupationalHealthCare = ({ entry, diagnoses }: { entry: OccupationalHealt
 
         <i>{entry.description}</i><br />
         {entry.diagnosisCodes && <ul>
-          {entry.diagnosisCodes?.map(x => <DiagnoseInfo key={count++} code={x} diagnoses={diagnoses} />)}
+          {entry.diagnosisCodes?.map(x => <DiagnoseInfo key={count++} code={x} name={diagnoses.find(y => y.code === x)?.name} />)}
         </ul>}
         diagnose by {entry.specialist}
       </Card>

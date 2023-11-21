@@ -1,15 +1,16 @@
 import { HealthCheckEntry, Diagnosis } from "../../types";
+import DiagnoseInfo from "./DiagnoseInfo";
 import Card from '@mui/material/Card';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import { green, yellow, orange, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import DiagnoseInfo from "./DiagnoseInfo";
 
-const HealthCheck = ({ entry, diagnoses }: { entry: HealthCheckEntry, diagnoses: Diagnosis[]}) => {
-  // const color = pink[500];
-  console.log('entry.healthCheckRating - ', entry.healthCheckRating);
-  let count = 0;
-  
+interface Props {
+  entry: HealthCheckEntry;
+  diagnoses: Diagnosis[];
+}
+
+const HealthCheck = ({ entry, diagnoses }: Props) => {
   let color: string;
   switch (entry.healthCheckRating) {
     case 0:
@@ -29,7 +30,6 @@ const HealthCheck = ({ entry, diagnoses }: { entry: HealthCheckEntry, diagnoses:
       break;
   }
 
-
   return (
     <div style={{ paddingBottom: 10 }}>
       <Card variant="outlined" sx={{ border: 1, lineHeight: 1.5, paddingLeft: 1 }}>
@@ -41,7 +41,7 @@ const HealthCheck = ({ entry, diagnoses }: { entry: HealthCheckEntry, diagnoses:
           <FavoriteIcon sx={{ color }} />
         </div>
         {entry.diagnosisCodes && <ul>
-          {entry.diagnosisCodes?.map(x => <DiagnoseInfo key={count++} code={x} diagnoses={diagnoses} />)}
+          {entry.diagnosisCodes?.map(x => <DiagnoseInfo key={x} code={x} name={diagnoses.find(y => y.code === x)?.name} />)}
         </ul>}
         diagnose by {entry.specialist}
       </Card>

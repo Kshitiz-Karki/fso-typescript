@@ -1,10 +1,7 @@
-import { Diagnosis } from "../../types";
-
-const DiagnoseInfo = ({ code, diagnoses }: { code: string, diagnoses: Diagnosis[] }) => {
-  const diagnose = diagnoses.find(x => x.code === code); 
+const DiagnoseInfo = ({ code, name }: { code: string, name: string | undefined }) => {
   return (
     <li>
-      {code} {diagnose?.name}
+      {code} {name}
     </li>
   );
 };
